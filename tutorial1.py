@@ -38,6 +38,15 @@ While this can make the model output more directly interpretable,
 this approach is discouraged as it's impossible to 
 provide an exact and numerically stable loss calculation for 
 all models when using a softmax output.
-
 '''
 
+#Checking for the loss of training
+loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+print(loss_fn(y_train[:1],predictions).numpy())
+
+
+model.compile(optimizer='adam',
+              loss=loss_fn,
+              metrics=['accuracy'])
+
+model.fit(x_train, y_train, epochs=5)
